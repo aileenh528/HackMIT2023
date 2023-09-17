@@ -25,14 +25,15 @@ def generated():
         if fitbit_userid is not None and fitbit_userid != "":
             try:
                 user_id = fitbit_userid
-                today = datetime.date.today()
+                # today = datetime.date.today()
+                today = datetime.date(2023, 8, 2)
                 yesterday = today - datetime.timedelta(days=1)
                 url = f"https://api.tryterra.co/v2/sleep?user_id={user_id}&start_date={yesterday.isoformat()}&end_date={today.isoformat()}&to_webhook=true&with_samples=true"
 
                 headers = {
                     "accept": "application/json",
-                    "dev-id": "hackmit-testing-RoRdxSOdgz",
-                    "x-api-key": "2r9NCMIz-90cLUyvANxGZqLkEdBXJXbF"
+                    "dev-id": "hackmit-testing-sLJpryWLDd",
+                    "x-api-key": "AJn0VgNB1PTNdTylH2xFiE8FTaSfQi1R"
                 }
 
                 response = requests.get(url, headers=headers)
@@ -40,9 +41,9 @@ def generated():
 
                 sleep_efficiency = response.json()["data"]["sleep_durations_data"]["sleep_efficiency"]
 
-                if sleep_efficiency < 80:
+                if sleep_efficiency < 0.80:
                     mood += f"My sleep efficiency was low, at {sleep_efficiency}%, so I'm not feeling well-rested."
-                elif sleep_efficiency < 95:
+                elif sleep_efficiency < 0.95:
                     mood += f"My sleep efficiency was fine, at {sleep_efficiency}%, so I'm feeling okay."
                 else:
                     mood += f"My sleep efficiency was great, at {sleep_efficiency}%, so I'm feeling very well-rested."
